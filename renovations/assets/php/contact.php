@@ -8,7 +8,7 @@ header('X-XSS-Protection: 1; mode=block');
 
 // Configuration
 $config = [
-    'to_email' => 'info@palmcoverenovations.com',
+    'to_email' => 'info@palmcovecabinetry.com',
     'from_email' => 'noreply@palmcoverenovations.com',
     'subject_prefix' => 'New Renovation Inquiry - ',
     'success_redirect' => '/thank-you.html',
