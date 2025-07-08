@@ -145,28 +145,38 @@ document.addEventListener('DOMContentLoaded', function() {
     
     contactForm.addEventListener('submit', function(e) {
         e.preventDefault();
-        
+
         // Get form data
         const formData = new FormData(this);
-        
+
         // Add loading state
         const submitButton = this.querySelector('button[type="submit"]');
         const originalText = submitButton.innerHTML;
         submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
         submitButton.disabled = true;
-        
-        // Simulate form submission (replace with actual AJAX call)
-        setTimeout(() => {
-            // Reset button
+
+        // Send form via AJAX
+        fetch('assets/php/contact.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.text();
+        })
+        .then(() => {
+            showNotification('Success! We\'ll contact you within 24 hours.', 'success');
+            contactForm.reset();
+        })
+        .catch(() => {
+            showNotification('There was an error submitting the form. Please try again.', 'error');
+        })
+        .finally(() => {
             submitButton.innerHTML = originalText;
             submitButton.disabled = false;
-            
-            // Show success message
-            showNotification('Success! We\'ll contact you within 24 hours.', 'success');
-            
-            // Reset form
-            contactForm.reset();
-        }, 2000);
+        });
     });
 
     // Form Validation
