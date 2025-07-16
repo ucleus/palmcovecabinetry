@@ -142,31 +142,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Form Handling
     const contactForm = document.getElementById('contactForm');
-    
-    contactForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        // Get form data
-        const formData = new FormData(this);
-        
-        // Add loading state
+
+    contactForm.addEventListener('submit', function() {
         const submitButton = this.querySelector('button[type="submit"]');
-        const originalText = submitButton.innerHTML;
         submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
-        submitButton.disabled = true;
-        
-        // Simulate form submission (replace with actual AJAX call)
-        setTimeout(() => {
-            // Reset button
-            submitButton.innerHTML = originalText;
-            submitButton.disabled = false;
-            
-            // Show success message
-            showNotification('Success! We\'ll contact you within 24 hours.', 'success');
-            
-            // Reset form
-            contactForm.reset();
-        }, 2000);
     });
 
     // Form Validation
